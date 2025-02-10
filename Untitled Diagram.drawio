@@ -4,26 +4,82 @@
       <root>
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
-        <mxCell id="Bz1uYGqDwAfH_G4NEDOJ-3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="Bz1uYGqDwAfH_G4NEDOJ-1" target="Bz1uYGqDwAfH_G4NEDOJ-2">
+        <mxCell id="Bz1uYGqDwAfH_G4NEDOJ-3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="Bz1uYGqDwAfH_G4NEDOJ-1" target="Bz1uYGqDwAfH_G4NEDOJ-2" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="Bz1uYGqDwAfH_G4NEDOJ-1" value="player opens game" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.terminator;whiteSpace=wrap;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+        <mxCell id="Bz1uYGqDwAfH_G4NEDOJ-1" value="player opens game" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.terminator;whiteSpace=wrap;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="490" y="30" width="170" height="100" as="geometry" />
         </mxCell>
-        <mxCell id="Bz1uYGqDwAfH_G4NEDOJ-5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="Bz1uYGqDwAfH_G4NEDOJ-2" target="Bz1uYGqDwAfH_G4NEDOJ-4">
+        <mxCell id="Bz1uYGqDwAfH_G4NEDOJ-5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="Bz1uYGqDwAfH_G4NEDOJ-2" target="Bz1uYGqDwAfH_G4NEDOJ-4" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="Bz1uYGqDwAfH_G4NEDOJ-2" value="home screen opens" style="whiteSpace=wrap;html=1;strokeWidth=2;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+        <mxCell id="Bz1uYGqDwAfH_G4NEDOJ-2" value="home screen opens" style="whiteSpace=wrap;html=1;strokeWidth=2;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="515" y="160" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="Bz1uYGqDwAfH_G4NEDOJ-7" value="new" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="Bz1uYGqDwAfH_G4NEDOJ-4" target="Bz1uYGqDwAfH_G4NEDOJ-6">
+        <mxCell id="Bz1uYGqDwAfH_G4NEDOJ-7" value="new" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="Bz1uYGqDwAfH_G4NEDOJ-4" target="Bz1uYGqDwAfH_G4NEDOJ-6" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="Bz1uYGqDwAfH_G4NEDOJ-4" value="new game or existing save point" style="rhombus;whiteSpace=wrap;html=1;strokeWidth=2;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
-          <mxGeometry x="515" y="260" width="117.5" height="110" as="geometry" />
+        <mxCell id="zj8q3JMmZ09svB9Fw_2r-15" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="Bz1uYGqDwAfH_G4NEDOJ-4" target="zj8q3JMmZ09svB9Fw_2r-13">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="573" y="670" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="573" y="680" />
+            </Array>
+          </mxGeometry>
         </mxCell>
-        <mxCell id="Bz1uYGqDwAfH_G4NEDOJ-6" value="stats screen appears &quot;enter your characters race&quot;" style="whiteSpace=wrap;html=1;strokeWidth=2;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+        <mxCell id="Bz1uYGqDwAfH_G4NEDOJ-4" value="new game or existing save point" style="rhombus;whiteSpace=wrap;html=1;strokeWidth=2;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="510" y="260" width="125" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="zj8q3JMmZ09svB9Fw_2r-1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="Bz1uYGqDwAfH_G4NEDOJ-6" target="zj8q3JMmZ09svB9Fw_2r-0">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Bz1uYGqDwAfH_G4NEDOJ-6" value="stats screen appears &quot;enter your characters race&quot;" style="whiteSpace=wrap;html=1;strokeWidth=2;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="711.25" y="285" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="zj8q3JMmZ09svB9Fw_2r-3" value="orc" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="zj8q3JMmZ09svB9Fw_2r-0" target="zj8q3JMmZ09svB9Fw_2r-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="zj8q3JMmZ09svB9Fw_2r-5" value="elf" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="zj8q3JMmZ09svB9Fw_2r-0" target="zj8q3JMmZ09svB9Fw_2r-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="zj8q3JMmZ09svB9Fw_2r-0" value="&lt;div&gt;orc/elf&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="rhombus;whiteSpace=wrap;html=1;strokeWidth=2;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="711.25" y="420" width="118.75" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="zj8q3JMmZ09svB9Fw_2r-2" value="+3 strength, 0 intellect +mace" style="whiteSpace=wrap;html=1;strokeWidth=2;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="909.375" y="442.5" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="zj8q3JMmZ09svB9Fw_2r-4" value="+3 intellect, 0 stregnth +staff" style="whiteSpace=wrap;html=1;strokeWidth=2;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="711.255" y="590" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="zj8q3JMmZ09svB9Fw_2r-6" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="960" y="502.5" as="sourcePoint" />
+            <mxPoint x="960" y="750" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zj8q3JMmZ09svB9Fw_2r-10" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="770" y="650" as="sourcePoint" />
+            <mxPoint x="770" y="750" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zj8q3JMmZ09svB9Fw_2r-13" value="user is put into game" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="515" y="830" width="120" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="zj8q3JMmZ09svB9Fw_2r-16" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="960" y="750" as="sourcePoint" />
+            <mxPoint x="770" y="750" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zj8q3JMmZ09svB9Fw_2r-18" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="zj8q3JMmZ09svB9Fw_2r-17" target="zj8q3JMmZ09svB9Fw_2r-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="zj8q3JMmZ09svB9Fw_2r-17" value="pick name/age and gender" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="701.5699999999999" y="750" width="139.37" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="zj8q3JMmZ09svB9Fw_2r-19" value="user is put into game" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.terminator;whiteSpace=wrap;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="480" y="805" width="170" height="100" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
