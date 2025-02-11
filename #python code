@@ -1,1 +1,10 @@
 #python code
+print("*******************")
+print("  welcome to game  ")
+
+print("\n1, New Game")
+print("2, Load Game")
+print("3, Quit Game")
+choice = input
+if choice  ("1"):
+pass
