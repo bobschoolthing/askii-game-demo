@@ -1,10 +1,38 @@
-#python code
-print("*******************")
-print("  welcome to game  ")
+import  sys
+class Main_menu:
+    def _init_(self):
+    
+        self.menu = True
+        self.stats_menu = False
+        self.play = False
+        self.player_race = None
+        self.display_menu()
 
-print("\n1, New Game")
-print("2, Load Game")
-print("3, Quit Game")
-choice = input
-if choice  ("1"):
-pass
+    def display_menu(self):
+        while self.menu:
+            print("*******************")
+            print("  welcome to game  ")
+            
+            print("\n1, New Game")
+            print("2, Load Game")
+            print("3, Quit Game")
+            self.choice = input("")
+            if self.choice  == "1":
+                self.menu = False
+                self.stats_menu = True
+            elif self.choice == "2":
+                self.menu = False
+                self.play = True 
+            elif self.choice == "3":
+                sys.exit()
+
+
+def setup_stats_menu(self):
+        while self.stats_menu:
+            print("\n** Stats Menu **")
+            races = ["orc", "elf"]
+            self.player_race = input(f"What race do you want to be? ({', '.join(races)}): ")
+
+
+
+game = Main_menu()
