@@ -1,6 +1,6 @@
 import  sys
 class Main_menu:
-    def _init_(self):
+    def __init__(self):
     
         self.menu = True
         self.stats_menu = False
@@ -33,6 +33,33 @@ def setup_stats_menu(self):
             races = ["orc", "elf"]
             self.player_race = input(f"What race do you want to be? ({', '.join(races)}): ")
 
+class game:
+    def __init__(self):
+        pass
 
-
+    def player(self):
+        playericon = ["@"]
+        playerposition = (44,3)
+    def map(self):
+        Ascii_Map = (50,19)
+        Ascii_Map: [
+                  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx,
+                  xxxxxxxxxxxxxxxxxxxxx............................x,
+                  xxxxxxxxxxxxxxx...........................    ...x,
+                  xxxxxxxxxxxx.....................................x,
+                  x................................................x,
+                  x................................................x,
+                  x................................................x,
+                  x................................................x,
+                  x................................................x,
+                  x........................................xxxxxxxxx,
+                  x....................................xxxxxxxxxxxxx,
+                  o..................................xxxxxxxxxxxxxxx,
+                  o..................................xxxxxxxxxxxxxxx,
+                  o..................................xxxxxxxxxxxxxxx,
+                  x...............................xxxxxxxxxxxxxxxxxx,
+                  x...............................xxxxxxxxxxxxxxxxxx,
+                  x................................................x,
+                  x................................................x,
+                  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx]
 game = Main_menu()
