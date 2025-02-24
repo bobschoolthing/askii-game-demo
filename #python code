@@ -1,65 +1,145 @@
-import  sys
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Feb 23 13:54:23 2025
+
+@author: bobby
+"""
+
+import sys
+
 class Main_menu:
     def __init__(self):
-    
         self.menu = True
         self.stats_menu = False
         self.play = False
         self.player_race = None
         self.display_menu()
+        self.game = False
 
     def display_menu(self):
         while self.menu:
-            print("*******************")
-            print("  welcome to game  ")
-            
+            print("  Welcome to the game  ")
             print("\n1, New Game")
             print("2, Load Game")
             print("3, Quit Game")
             self.choice = input("")
-            if self.choice  == "1":
+            if self.choice == "1":
                 self.menu = False
                 self.stats_menu = True
+                self.setup_stats_menu()  # Loads into stats menu 
             elif self.choice == "2":
                 self.menu = False
                 self.play = True 
             elif self.choice == "3":
                 sys.exit()
 
-
-def setup_stats_menu(self):
+    def setup_stats_menu(self):
         while self.stats_menu:
             print("\n** Stats Menu **")
             races = ["orc", "elf"]
             self.player_race = input(f"What race do you want to be? ({', '.join(races)}): ")
+            if self.player_race not in races:
+                print("Race must be one of the two shown on screen")
+            else:
+                self.stats_menu = False
+                self.game = Game(self.player_race)
+                self.game.print_map()
 
-class game:
-    def __init__(self):
-        pass
+class Game:
+    def __init__(self, player_race):
+        self.player_icon = "@"
+        self.player_position = [3, 46]  # Starting position of the player
+        self.health = 100
+        self.map_width = 50
+        self.map_height = 19
+        self.player_race = player_race
+        self.ascii_map = [
+            "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+            "xxxxxxxxxxxxxxxxxxxx............................x",
+            "xxxxxxxxxxxxxxx................................x",
+            "xxxxxxxxxxxx...................................x",
+            "x.............................T.................x",
+            "x...............................................x",
+            "x...............................................x",
+            "x..............T................................x",
+            "x...............................................x",
+            "x...................................xxxxxxxxxx.x",
+            "x............................xxxxxxxxxxxxxxxxxxxx",
+            "o..................................xxxxxxxxxx.x",
+            "o..................................xxxxxxxxxx.x",
+            "o..................................xxxxxxxxxx.x",
+            "x.............................xxxxxxxxxxxxxxxxxx",
+            "x..............T..............xxxxxxxxxxxxxxxxxx",
+            "x...............................................x",
+            "x...............................................x",
+            "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+        ]
+    
+    def player_movement(self):
+        move = input("Move (WASD): ").lower()
+        if move == "w" and self.player_position[0] > 0:
+            self.player_position[0] -= 1
+        elif move == "s" and self.player_position[0] < self.map_height - 1:
+            self.player_position[0] += 1
+        elif move == "a" and self.player_position[1] > 0:
+            self.player_position[1] -= 1
+        elif move == "d" and self.player_position[1] < self.map_width - 1:
+            self.player_position[1] += 1
+    
+    def death(self):
+        print("You died")
+        sys.exit()
+    
+    def trap(self):
+        y, x = self.player_position
+        trap_character = "T"
+        if self.ascii_map[y][x] == trap_character: 
+            self.health -= 10
+            print(f"You stepped on a trap. Health: {self.health}")
+            if self.health <= 0:
+                self.death()
+    
+    def attack(self):
+       y, x = self.player_position
+       for enemy in self.enemies:
+           if enemy["position"] == [y, x + 1] or enemy["position"] == [y, x - 1] or enemy["position"] == [y + 1, x] or enemy["position"] == [y - 1, x]:
+               damage = 20 if self.player_race == "orc" else 10
+               print(f"You attacked the enemy! {damage} damage dealt.")
+               enemy["health"] -= damage
+               if enemy["health"] <= 0:
+                   print("The enemy has been defeated!")
+                   self.enemies.remove(enemy)
+               return
+            
 
-    def player(self):
-        playericon = ["@"]
-        playerposition = (44,3)
-    def map(self):
-        Ascii_Map = (50,19)
-        Ascii_Map: [
-                  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx,
-                  xxxxxxxxxxxxxxxxxxxxx............................x,
-                  xxxxxxxxxxxxxxx...........................    ...x,
-                  xxxxxxxxxxxx.....................................x,
-                  x................................................x,
-                  x................................................x,
-                  x................................................x,
-                  x................................................x,
-                  x................................................x,
-                  x........................................xxxxxxxxx,
-                  x....................................xxxxxxxxxxxxx,
-                  o..................................xxxxxxxxxxxxxxx,
-                  o..................................xxxxxxxxxxxxxxx,
-                  o..................................xxxxxxxxxxxxxxx,
-                  x...............................xxxxxxxxxxxxxxxxxx,
-                  x...............................xxxxxxxxxxxxxxxxxx,
-                  x................................................x,
-                  x................................................x,
-                  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx]
+    def print_map(self):
+        map_lines = self.ascii_map[:]
+        y, x = self.player_position
+        map_lines[y] = map_lines[y][:x] + self.player_icon + map_lines[y][x + 1:] # finds what row/y axis the player is on finding the previous row and than adding the player icon to the new position, this is used so the player can interact with objects in the world 
+
+        # enemies on the map
+        for enemy in self.enemies:
+            ey, ex = enemy["position"]
+            map_lines[ey] = map_lines[ey][:ex] + enemy["icon"] + map_lines[ey][ex + 1:]
+            
+        # Print the map
+        print("\n".join(map_lines))
+        self.game_loop()
+
+    def game_loop(self):
+        # Loop for continuous game movement
+        while True:
+            self.player_movement()
+            self.trap()  # Check if player steps on a trap
+            self.print_map()
+    def objective(self):
+        self.objectivedone = False
+        while self.objectivedone == True:
+            print("you completed the ")
+        y, x = self.player_position
+        objective_symbol = "0"
+        if self.ascii_map[y][x] == objective_symbol:
+            self.objectivedone = True
+            self.objectivedone()
+# Start the game
 game = Main_menu()
