@@ -1,12 +1,4 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sun Feb 23 13:54:23 2025
-
-@author: bobby
-"""
-
 import sys
-
 class Main_menu:
     def __init__(self):
         self.menu = True
@@ -53,12 +45,13 @@ class Game:
         self.map_width = 50
         self.map_height = 19
         self.player_race = player_race
+       
         self.ascii_map = [
             "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
             "xxxxxxxxxxxxxxxxxxxx............................x",
             "xxxxxxxxxxxxxxx................................x",
             "xxxxxxxxxxxx...................................O",
-            "x.............................T.................x",
+            "x.............................T.....O...........x",
             "x...............................................x",
             "x...............................................x",
             "x..............T................................x",
@@ -74,8 +67,10 @@ class Game:
             "x...............................................x",
             "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
         ]
-    
+        self.game_over = False # so that the map stops printing when set to True when the objective is met
     def player_movement(self):
+        if self.game_over:  # cant move after objective is met
+           return
         move = input("Move (WASD): ").lower()
         if move == "w" and self.player_position[0] > 0:
             self.player_position[0] -= 1
@@ -85,7 +80,7 @@ class Game:
             self.player_position[1] -= 1
         elif move == "d" and self.player_position[1] < self.map_width - 1:
             self.player_position[1] += 1
-    
+            print(f"New player position: {self.player_position}")
     def death(self):
         print("You died: gave over!!")
         sys.exit()
@@ -98,7 +93,19 @@ class Game:
             print(f"You stepped on a trap. Health: {self.health}")
             if self.health <= 0:
                 self.death()
-    
+        
+    def objective(self):
+        y, x = self.player_position
+        objective_symbol = "O"
+        if self.ascii_map[y][x] == objective_symbol:
+            self.objectivedone()
+            self.game_over = True
+            
+    def objectivedone(self):
+        
+        print("you completed the demo")
+         
+         
     def attack(self):
        y, x = self.player_position
        for enemy in self.enemies:
@@ -116,13 +123,6 @@ class Game:
        for enemy in self.enemies:
           ey, ex = enemy["position"]
           map_lines[ey] = map_lines[ey][:ex] + self.enemy_charachter + map_lines[ey][ex + 1:]
-    def objectivedone(self):
-        print("you completed the game!!!!!!")
-    def objective(self):
-        y, x = self.player_position
-        objective_symbol = "O"
-        if self.ascii_map[y][x] == objective_symbol:
-            self.objectivedone()
               
     def print_map(self):
         map_lines = self.ascii_map[:]
@@ -134,10 +134,10 @@ class Game:
         self.game_loop()
 
     def game_loop(self):
-        # Loop for game movement
-        while True:
+        while not self.game_over: #makes sure the objective isnt complete and if it is will stop these
             self.player_movement()
             self.trap()  # Check if player steps on a trap
+            self.objective()
             self.print_map()
 # Start the game
 game = Main_menu()
