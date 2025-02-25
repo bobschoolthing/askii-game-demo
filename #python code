@@ -57,7 +57,7 @@ class Game:
             "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
             "xxxxxxxxxxxxxxxxxxxx............................x",
             "xxxxxxxxxxxxxxx................................x",
-            "xxxxxxxxxxxx...................................x",
+            "xxxxxxxxxxxx...................................O",
             "x.............................T.................x",
             "x...............................................x",
             "x...............................................x",
@@ -65,9 +65,9 @@ class Game:
             "x...............................................x",
             "x...................................xxxxxxxxxx.x",
             "x............................xxxxxxxxxxxxxxxxxxxx",
-            "o..................................xxxxxxxxxx.x",
-            "o..................................xxxxxxxxxx.x",
-            "o..................................xxxxxxxxxx.x",
+            "O..................................xxxxxxxxxx.x",
+            "O........................E.........xxxxxxxxxx.x",
+            "O..................................xxxxxxxxxx.x",
             "x.............................xxxxxxxxxxxxxxxxxx",
             "x..............T..............xxxxxxxxxxxxxxxxxx",
             "x...............................................x",
@@ -87,7 +87,7 @@ class Game:
             self.player_position[1] += 1
     
     def death(self):
-        print("You died")
+        print("You died: gave over!!")
         sys.exit()
     
     def trap(self):
@@ -105,41 +105,39 @@ class Game:
            if enemy["position"] == [y, x + 1] or enemy["position"] == [y, x - 1] or enemy["position"] == [y + 1, x] or enemy["position"] == [y - 1, x]:
                damage = 20 if self.player_race == "orc" else 10
                print(f"You attacked the enemy! {damage} damage dealt.")
-               enemy["health"] -= damage
-               if enemy["health"] <= 0:
+               self.enemy_health -= damage
+               if self.enemy_health <= 0:
                    print("The enemy has been defeated!")
                    self.enemies.remove(enemy)
                return
-            
-
+    def enemy(self,health,map_lines):
+       self.enemy(health) == 100
+       self.enemy_charachter = "E"
+       for enemy in self.enemies:
+          ey, ex = enemy["position"]
+          map_lines[ey] = map_lines[ey][:ex] + self.enemy_charachter + map_lines[ey][ex + 1:]
+    def objectivedone(self):
+        print("you completed the game!!!!!!")
+    def objective(self):
+        y, x = self.player_position
+        objective_symbol = "O"
+        if self.ascii_map[y][x] == objective_symbol:
+            self.objectivedone()
+              
     def print_map(self):
         map_lines = self.ascii_map[:]
         y, x = self.player_position
         map_lines[y] = map_lines[y][:x] + self.player_icon + map_lines[y][x + 1:] # finds what row/y axis the player is on finding the previous row and than adding the player icon to the new position, this is used so the player can interact with objects in the world 
-
-        # enemies on the map
-        for enemy in self.enemies:
-            ey, ex = enemy["position"]
-            map_lines[ey] = map_lines[ey][:ex] + enemy["icon"] + map_lines[ey][ex + 1:]
-            
+    
         # Print the map
         print("\n".join(map_lines))
         self.game_loop()
 
     def game_loop(self):
-        # Loop for continuous game movement
+        # Loop for game movement
         while True:
             self.player_movement()
             self.trap()  # Check if player steps on a trap
             self.print_map()
-    def objective(self):
-        self.objectivedone = False
-        while self.objectivedone == True:
-            print("you completed the ")
-        y, x = self.player_position
-        objective_symbol = "0"
-        if self.ascii_map[y][x] == objective_symbol:
-            self.objectivedone = True
-            self.objectivedone()
 # Start the game
 game = Main_menu()
