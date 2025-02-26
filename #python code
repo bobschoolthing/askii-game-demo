@@ -112,23 +112,23 @@ class Game:
     def objectivedone(self):
         print("You completed the demo!")
 
-    def enemy_interaction(self):
+    def enemy(self):
         y, x = self.player_position
         enemy_symbol = "E"
         # Check if the player is on an enemy position ("E")
         if self.ascii_map[y][x] == enemy_symbol:
             print("You encountered an enemy!")
             self.in_combat = True  # Set the combat flag
-            self.battle()
+            self.combat()
 
-    def battle(self):
+    def combat(self):
         print("You have entered combat!")
-        while self.enemy_health > 0 and self.health > 0:
+        while self.enemy_health > 0:
             action = input("Choose attack (light/heavy): ").lower()
             if action == "light":
                 print("You perform a light attack.")
                 if self.player_race == "orc":
-                    damage = random.randint(15, 25)
+                    damage = random.randint(100, 100)
                 else:
                     damage = random.randint(10, 20)
                 self.enemy_health -= damage
@@ -155,23 +155,30 @@ class Game:
 
             if self.enemy_health <= 0:
                 print("Enemy defeated! You won the battle!")
-                self.replace_enemy_with_dot()  
+                self.remove_enemy(self.player_position) 
+                self.in_combat = False  # Set combat flag to False after battle ends
                 break
 
-            # Enemy attack logic
+            # Enemy attack code
             enemy_damage = random.randint(10, 20)  # Enemy deals less damage than the player
             self.health -= enemy_damage
             print(f"The enemy attacks you and deals {enemy_damage} damage. Your health: {self.health}")
             if self.health <= 0:
                 self.death()
 
-    def replace_enemy_with_dot(self):
-        # Replace the enemy position on the map with a dot when defeated
-        enemy_pos = self.enemy_positions[0]
-        y, x = enemy_pos
-        map_lines = self.ascii_map[:]
-        map_lines[y] = map_lines[y][:x] + "." + map_lines[y][x + 1:]
-        self.ascii_map = map_lines
+    def remove_enemy(self, player_position):
+        for enemy_pos in self.enemy_positions:
+            if enemy_pos == player_position:
+                # Replace the enemy with a dot
+                y, x = enemy_pos
+                map_lines = self.ascii_map[:]#makes a new map
+                map_lines[y] = map_lines[y][:x] + "." + map_lines[y][x + 1:] # adds a dot to that new map on the y,x of the player posisiton
+                self.ascii_map = map_lines
+                # Remove the enemy 
+                self.enemy_positions.remove(enemy_pos)
+                break
+
+
 
     def print_map(self):
         map_lines = self.ascii_map[:]
@@ -184,13 +191,28 @@ class Game:
             print(f"Enemy Health: {self.enemy_health}")
 
     def game_loop(self):
-        while not self.game_over:  
-            self.print_map()
+        while not self.game_over:
+            self.print_map()  # Display the map with the player's current position
             self.trap()  # Check if player steps on a trap
-            self.objective()
-            self.enemy_interaction()  # Check for enemy interaction based on map
-            if not self.in_combat:  # If not in combat, allow player movement
-                self.player_movement()
+            self.objective()  # Check if the player completes an objective
+    
+            if not self.in_combat:
+                self.enemy()  # Check if the player has encountered an enemy
+        
+              # If we're in combat, handle the combat code
+            if self.in_combat:
+                  self.combat()
+                 
+                  if not self.in_combat: 
+                      continue 
+              
+             
+            if not self.in_combat:
+                self.player_movement()  
+
+
+
+
 
 # Start the game
 game = Main_menu()
