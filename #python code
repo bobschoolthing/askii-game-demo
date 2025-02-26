@@ -1,11 +1,6 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Feb 26 12:49:51 2025
-
-@author: 188123
-"""
-
 import sys
+import random
+
 class Main_menu:
     def __init__(self):
         self.menu = True
@@ -42,7 +37,7 @@ class Main_menu:
             else:
                 self.stats_menu = False
                 self.game = Game(self.player_race)
-                self.game.print_map()
+                self.game.game_loop()  # Start the game loop
 
 class Game:
     def __init__(self, player_race):
@@ -52,20 +47,22 @@ class Game:
         self.map_width = 50
         self.map_height = 19
         self.player_race = player_race
+        self.enemy_positions = [(12, 31)]  # Enemy positions
+        self.enemy_health = 80
         self.ascii_map = [
             "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
             "xxxxxxxxxxxxxxxxxxxx............................x",
             "xxxxxxxxxxxxxxx................................x",
-            "xxxxxxxxxxxx...................................x",
+            "xxxxxxxxxxxx...................................O",
             "x.............................T.....O...........x",
-            "x................................E..............x",
+            "x...............................................x",
             "x...............................................x",
             "x..............T................................x",
             "x...............................................x",
             "x...................................xxxxxxxxxx.x",
             "x............................xxxxxxxxxxxxxxxxxxxx",
             "O..................................xxxxxxxxxx.x",
-            "O..................................xxxxxxxxxx.x",
+            "O........................E.........xxxxxxxxxx.x",
             "O..................................xxxxxxxxxx.x",
             "x.............................xxxxxxxxxxxxxxxxxx",
             "x..............T..............xxxxxxxxxxxxxxxxxx",
@@ -73,10 +70,12 @@ class Game:
             "x...............................................x",
             "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
         ]
-        self.game_over = False # used so the game knows that it has not been complete so that it can stop all function but the objective code after it is run
+        self.game_over = False  # flag will check if objective is complete
+        self.turn_counter = 0  # This will check the heavy attack turns
+        self.in_combat = False  # Flag to check if in combat
 
     def player_movement(self):
-        if self.game_over:
+        if self.game_over or self.in_combat:  # Can't move after objective is met or during combat
             return
         move = input("Move (WASD): ").lower()
         if move == "w" and self.player_position[0] > 0:
@@ -87,17 +86,17 @@ class Game:
             self.player_position[1] -= 1
         elif move == "d" and self.player_position[1] < self.map_width - 1:
             self.player_position[1] += 1
-           
+       
         print(f"New player position: {self.player_position}")
 
     def death(self):
-        print("You died: game over!")
+        print("You died: game over!!")
         sys.exit()
 
     def trap(self):
         y, x = self.player_position
         trap_character = "T"
-        if self.ascii_map[y][x] == trap_character:
+        if self.ascii_map[y][x] == trap_character: 
             self.health -= 10
             print(f"You stepped on a trap. Health: {self.health}")
             if self.health <= 0:
@@ -108,36 +107,90 @@ class Game:
         objective_symbol = "O"
         if self.ascii_map[y][x] == objective_symbol:
             self.objectivedone()
-            self.game_over = True
+            self.game_over = True # objective flag so that all actions but the objective done code are done
 
     def objectivedone(self):
         print("You completed the demo!")
 
-    def attack(self):
-        pass
-               
-    def enemy(self,player_position):
-        enemy_charachter = "E"
-        enemy_charachter = [5,33]
-        if self.player_position == enemy_charachter:
-            print("your at an enemy")
-            
+    def enemy_interaction(self):
+        y, x = self.player_position
+        enemy_symbol = "E"
+        # Check if the player is on an enemy position ("E")
+        if self.ascii_map[y][x] == enemy_symbol:
+            print("You encountered an enemy!")
+            self.in_combat = True  # Set the combat flag
+            self.battle()
+
+    def battle(self):
+        print("You have entered combat!")
+        while self.enemy_health > 0 and self.health > 0:
+            action = input("Choose attack (light/heavy): ").lower()
+            if action == "light":
+                print("You perform a light attack.")
+                if self.player_race == "orc":
+                    damage = random.randint(15, 25)
+                else:
+                    damage = random.randint(10, 20)
+                self.enemy_health -= damage
+                print(f"You dealt {damage} damage to the enemy.")
+            elif action == "heavy":
+                print("You start charging your heavy attack.")
+                if self.turn_counter == 0:
+                    self.turn_counter = 1  # It takes two turns for a heavy attack
+                elif self.turn_counter == 1:
+                    print("You are charging up your heavy attack!")
+                    self.turn_counter += 1
+                elif self.turn_counter == 2:
+                    print("Heavy attack ready!")
+                    if self.player_race == "orc":
+                        damage = random.randint(30, 45)
+                    else:
+                        damage = random.randint(25, 35)
+                    self.enemy_health -= damage
+                    print(f"You dealt {damage} damage to the enemy.")
+                    self.turn_counter = 0  # Reset after completing the attack
+            else:
+                print("Invalid action! Please choose 'light' or 'heavy'.")
+                continue  
+
+            if self.enemy_health <= 0:
+                print("Enemy defeated! You won the battle!")
+                self.replace_enemy_with_dot()  
+                break
+
+            # Enemy attack logic
+            enemy_damage = random.randint(10, 20)  # Enemy deals less damage than the player
+            self.health -= enemy_damage
+            print(f"The enemy attacks you and deals {enemy_damage} damage. Your health: {self.health}")
+            if self.health <= 0:
+                self.death()
+
+    def replace_enemy_with_dot(self):
+        # Replace the enemy position on the map with a dot when defeated
+        enemy_pos = self.enemy_positions[0]
+        y, x = enemy_pos
+        map_lines = self.ascii_map[:]
+        map_lines[y] = map_lines[y][:x] + "." + map_lines[y][x + 1:]
+        self.ascii_map = map_lines
+
     def print_map(self):
         map_lines = self.ascii_map[:]
         y, x = self.player_position
-        map_lines[y] = map_lines[y][:x] + self.player_icon + map_lines[y][x + 1:]
+        map_lines[y] = map_lines[y][:x] + self.player_icon + map_lines[y][x + 1:]  # Updates player position on the map
+    
+        # Print the map and fight-related information if in combat
         print("\n".join(map_lines))
-        self.game_loop()
+        if self.in_combat:
+            print(f"Enemy Health: {self.enemy_health}")
 
     def game_loop(self):
-        while not self.game_over:
-            self.player_movement()
-            self.trap()
-            self.objective()
+        while not self.game_over:  
             self.print_map()
-            self.attack()
-            self.enemy()  
+            self.trap()  # Check if player steps on a trap
+            self.objective()
+            self.enemy_interaction()  # Check for enemy interaction based on map
+            if not self.in_combat:  # If not in combat, allow player movement
+                self.player_movement()
 
-
-if __name__ == "__main__":
-    main_menu = Main_menu()
+# Start the game
+game = Main_menu()
