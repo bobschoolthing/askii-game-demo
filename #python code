@@ -16,7 +16,7 @@ class Main_menu:
             print("\n1, New Game")
             print("2, Load Game")
             print("3, Quit Game")
-            self.choice = input("")
+            self.choice = input("enter here:")
             if self.choice == "1":
                 self.menu = False
                 self.stats_menu = True
@@ -49,6 +49,7 @@ class Game:
         self.player_race = player_race
         self.enemy_positions = [(12, 31)]  # Enemy positions
         self.enemy_health = 80
+        self.player_inventory = {"potion": 1, "key": 0}
         self.ascii_map = [
             "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
             "xxxxxxxxxxxxxxxxxxxx............................x",
@@ -73,7 +74,7 @@ class Game:
         self.game_over = False  # flag will check if objective is complete
         self.turn_counter = 0  # This will check the heavy attack turns
         self.in_combat = False  # Flag to check if in combat
-
+        
     def player_movement(self):
         if self.game_over or self.in_combat:  # Can't move after objective is met or during combat
             return
@@ -114,10 +115,14 @@ class Game:
     def objective(self):
         y, x = self.player_position
         objective_symbol = "O"
-        if self.ascii_map[y][x] == objective_symbol:
-            self.objectivedone()
-            self.game_over = True # objective flag so that all actions but the objective done code are done
-
+        if self.ascii_map[y][x] == objective_symbol :
+            if self.player_inventory.get("key", 0) == 1:
+                    self.objectivedone()
+                    self.game_over = True # objective flag so that all actions but the objective done code are done
+                    self.objectivedone()
+            else:
+                print ("you see a locked door")
+            
     def objectivedone(self):
         print("You completed the demo!")
 
@@ -140,20 +145,24 @@ class Game:
     
                 if elfdi == "1":  
                     print("Ok man, just go left. Here you go.")
+                    self.in_combat = False
+                    self.items()
                     break  # Exit the loop after the directions are given
                 elif elfdi == "2":  
-                    print("Come at me!")
+                    print("Cum at me!")
                     self.combat() 
                     break  
                 else:
                     print("Invalid choice. Try again.")  # Error message for invalid input
             else:  # For Orc dialog
-                orcdi = input("\n1: your messing wit the wrong orc!50%\n2: bring it on\n")
+                orcdi = input("\n1: your messing wit the wrong orc!(50% chance to scare)\n2: bring it on\n")
     
                 if orcdi == "1":
                     response = random.choice(["ok just go left here you go", "i think i do!!"])
                     print(response)
                     if response == "ok just go left here you go":
+                        self.in_combat = False
+                        self.items()
                         break  
                     else:
                         self.combat() 
@@ -168,7 +177,7 @@ class Game:
     def combat(self):
         print("You have entered combat!")
         while self.enemy_health > 0:
-            action = input("Choose attack (light/heavy): ").lower()
+            action = input("Choose attack (light/heavy which takes two turns): ").lower()
             if action == "light":
                 print("You perform a light attack.")
                 if self.player_race == "orc":
@@ -196,6 +205,7 @@ class Game:
                 continue  
 
             if self.enemy_health <= 0:
+                self.items()
                 print("Enemy defeated! You won the battle!")
                 self.in_combat = False  # Set combat flag to False after battle ends
                 break
@@ -203,11 +213,12 @@ class Game:
             # Enemy attack code
             enemy_damage = random.randint(10, 20)  # Enemy deals less damage than the player
             self.health -= enemy_damage
-            print(f"The enemy attacks you and deals {enemy_damage} damage. Your health: {self.health}")
+            print(f"The enemy attacks you and deals {enemy_damage} damage.\n Your health: {self.health}")
             if self.health <= 0:
                 self.death()
-
-               
+    def items(self):
+       self.player_inventory["key"] = 1
+       print ("you obtained a key")
 
 
 
@@ -226,7 +237,8 @@ class Game:
             self.print_map()  # Display the map with the player's current position
             self.trap()  # Check if player steps on a trap
             self.objective()  # Check if the player completes an objective
-    
+            self.items
+            
             if not self.in_combat:
                 self.enemy()  # Check if the player has encountered an enemy
         
